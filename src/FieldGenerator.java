@@ -14,20 +14,30 @@ public class FieldGenerator {
         Random random = new Random();
         int[][] field = new int[length][width];
 
-
-        for (int i = 0; i < 100; i++) {
+        int countOfShips = 0;
+        while (countOfShips < 100) {
             int a = random.nextInt(0, length);
             int b = random.nextInt(0, width);
 
-            if (field[a][b] == 1) {
-                i--;
-            }
-            else {
+            if (field[a][b] == 0) {
                 field[a][b] = 1;
+                countOfShips++;
             }
-
         }
 
+
+        //for (int i = 0; i < 100; i++) {
+        //    int a = random.nextInt(0, length);
+        //    int b = random.nextInt(0, width);
+//
+        //    if (field[a][b] == 1) {
+        //        i--;
+        //    }
+        //    else {
+        //        field[a][b] = 1;
+        //    }
+        //}
+//
 
         return field;
     }
