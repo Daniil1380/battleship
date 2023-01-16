@@ -14,10 +14,20 @@ public class FieldGenerator {
         Random random = new Random();
         int[][] field = new int[length][width];
 
-        int a = random.nextInt(0, length);
-        int b = random.nextInt(0, width);
 
-        field[a][b] = 1;
+        for (int i = 0; i < 100; i++) {
+            int a = random.nextInt(0, length);
+            int b = random.nextInt(0, width);
+
+            if (field[a][b] == 1) {
+                i--;
+            }
+            else {
+                field[a][b] = 1;
+            }
+
+        }
+
 
         return field;
     }
