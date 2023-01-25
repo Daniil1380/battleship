@@ -5,9 +5,12 @@ public class FieldGenerator {
     private int length;
     private int width;
 
-    public FieldGenerator(int length, int width) {
+    private int shipsPerField;
+
+    public FieldGenerator(int length, int width, int shipsPerField) {
         this.length = length;
         this.width = width;
+        this.shipsPerField = shipsPerField;
     }
 
     public int[][] generate() {
@@ -15,14 +18,26 @@ public class FieldGenerator {
         int[][] field = new int[length][width];
 
         int countOfShips = 0;
-        while (countOfShips < 100) {
-            int a = random.nextInt(0, length);
-            int b = random.nextInt(0, width);
+        while (countOfShips < shipsPerField) {
+            int a = random.nextInt(0, length - 1);
+            int b = random.nextInt(0, width - 1);
+            boolean horizontal = random.nextBoolean();
 
-            if (field[a][b] == 0) {
-                field[a][b] = 1;
-                countOfShips++;
+            if (horizontal) {
+                if (checkCollisionHorizontal(field, a, b)) {
+                    field[a][b] = 2;
+                    field[a][b + 1] = 2;
+                    countOfShips++;
+                }
             }
+            else {
+                if (checkCollisionVertical(field, a, b)) {
+                    field[a][b] = 2;
+                    field[a + 1][b] = 2;
+                    countOfShips++;
+                }
+            }
+
         }
 
 
@@ -40,5 +55,13 @@ public class FieldGenerator {
 //
 
         return field;
+    }
+
+    private boolean checkCollisionHorizontal(int[][] field, int a, int b) {
+        return field[a][b] == 0 && field[a][b + 1] == 0;
+    }
+
+    private boolean checkCollisionVertical(int[][] field, int a, int b) {
+        return field[a][b] == 0 && field[a + 1][b] == 0;
     }
 }
